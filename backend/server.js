@@ -7,7 +7,8 @@ const PORT = process.env.PORT || 3000;
 
 function sendJson(res, status, data) {
     res.writeHead(status, {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
     });
 
     res.end(JSON.stringify(data));
@@ -42,26 +43,36 @@ const server = http.createServer(async (req, res) => {
     }
 
     // TURN ON
-    if (req.method === "POST" && req.url === "/on") {
+    // GET + POST दोनों काम करेंगे
+    if (
+        (req.method === "GET" || req.method === "POST") &&
+        req.url === "/on"
+    ) {
         webhookEnabled = true;
 
         return sendJson(res, 200, {
             success: true,
-            webhook: "ON"
+            webhook: "ON",
+            status: "ONLINE"
         });
     }
 
     // TURN OFF
-    if (req.method === "POST" && req.url === "/off") {
+    // GET + POST दोनों काम करेंगे
+    if (
+        (req.method === "GET" || req.method === "POST") &&
+        req.url === "/off"
+    ) {
         webhookEnabled = false;
 
         return sendJson(res, 200, {
             success: true,
-            webhook: "OFF"
+            webhook: "OFF",
+            status: "OFFLINE"
         });
     }
 
-    // TRADINGVIEW WEBHOOK
+    // TRADINGVIEW / APK WEBHOOK
     if (req.method === "POST" && req.url === "/webhook") {
 
         if (!webhookEnabled) {
@@ -101,16 +112,18 @@ const server = http.createServer(async (req, res) => {
     if (req.method === "GET" && req.url === "/") {
         return sendJson(res, 200, {
             service: "JK HUB WEBHOOK",
-            webhook: webhookEnabled ? "ON" : "OFF"
+            webhook: webhookEnabled ? "ON" : "OFF",
+            status: webhookEnabled ? "ONLINE" : "OFFLINE"
         });
     }
 
-    sendJson(res, 404, {
+    // NOT FOUND
+    return sendJson(res, 404, {
         success: false,
         message: "Not found"
     });
 });
 
-server.listen(PORT, () => {
+server.listen(PORT, "0.0.0.0", () => {
     console.log(`JK HUB Webhook running on port ${PORT}`);
 });

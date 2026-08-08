@@ -29,3 +29,37 @@ jobs:
 
       - name: Check JavaScript
         run: node --check backend/server.js
+
+      - name: Start backend
+        run: |
+          node backend/server.js > backend.log 2>&1 &
+          sleep 2
+          cat backend.log
+
+      - name: Test status
+        run: |
+          curl -f http://127.0.0.1:3000/status
+
+      - name: Test ON
+        run: |
+          curl -f -X POST http://127.0.0.1:3000/on
+
+      - name: Verify ON
+        run: |
+          curl -f http://127.0.0.1:3000/status
+
+      - name: Test webhook
+        run: |
+          curl -f \
+            -X POST \
+            -H "Content-Type: application/json" \
+            -d '{"signal":"BUY","pair":"BTCUSDT","entry":"100000","sl":"99000","tp1":"102000","tp2":"104000"}' \
+            http://127.0.0.1:3000/webhook
+
+      - name: Test OFF
+        run: |
+          curl -f -X POST http://127.0.0.1:3000/off
+
+      - name: Verify OFF
+        run: |
+          curl -f http://127.0.0.1:3000/status

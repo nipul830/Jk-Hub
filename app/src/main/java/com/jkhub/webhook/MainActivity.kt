@@ -1,15 +1,16 @@
 package com.jkhub.webhook
 
+import android.app.Activity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
 
         val webhookUrl = findViewById<EditText>(R.id.webhookUrl)
@@ -28,13 +29,16 @@ class MainActivity : AppCompatActivity() {
             val type = signalType.text.toString().trim()
             val symbol = pair.text.toString().trim()
             val entryPrice = entry.text.toString().trim()
-            val stopLoss = sl.text.toString().trim()
-            val target1 = tp1.text.toString().trim()
-            val target2 = tp2.text.toString().trim()
 
             if (url.isEmpty() || symbol.isEmpty() || entryPrice.isEmpty()) {
                 status.text = "Please fill required fields"
                 return@setOnClickListener
+            }
+
+            status.text = "Signal ready: $type $symbol"
+        }
+    }
+}                return@setOnClickListener
             }
 
             status.text = "Signal ready: $type $symbol"

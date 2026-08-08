@@ -8,63 +8,81 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="20dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="JKHUB WEBHOOK"
+            android:text="JK HUB"
             android:textSize="28sp"
             android:textStyle="bold"
             android:gravity="center"
-            android:paddingBottom="30dp" />
+            android:paddingBottom="20dp" />
 
-        <TextView
-            android:id="@+id/statusDot"
+        <EditText
+            android:id="@+id/webhookUrl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="🔴 OFFLINE"
-            android:textSize="22sp"
-            android:gravity="center"
-            android:padding="15dp" />
+            android:hint="Webhook URL"
+            android:inputType="textUri" />
+
+        <EditText
+            android:id="@+id/signalType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Signal Type (BUY / SELL)"
+            android:text="BUY" />
+
+        <EditText
+            android:id="@+id/pair"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Pair"
+            android:text="BTCUSDT" />
+
+        <EditText
+            android:id="@+id/entry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Entry"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/sl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Stop Loss"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/tp1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Take Profit 1"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/tp2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Take Profit 2"
+            android:inputType="numberDecimal" />
 
         <Button
-            android:id="@+id/toggleButton"
+            android:id="@+id/sendButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="WEBHOOK ON"
-            android:layout_marginTop="15dp" />
+            android:text="SEND SIGNAL"
+            android:layout_marginTop="20dp" />
 
         <TextView
-            android:id="@+id/statusText"
+            android:id="@+id/status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Status: OFFLINE"
-            android:textSize="18sp"
-            android:gravity="center"
-            android:padding="25dp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#CCCCCC"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="LAST SIGNAL"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/lastSignal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="No signal received"
+            android:text="Ready"
             android:textSize="16sp"
-            android:paddingTop="15dp" />
+            android:gravity="center"
+            android:paddingTop="20dp" />
 
     </LinearLayout>
 
